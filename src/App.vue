@@ -1,19 +1,19 @@
 <script setup>
 import TheList from './components/TheList.vue'
+import NavigationBar from './components/NavigationBar.vue'
 </script>
 
 <template>
-  <header>
-    <h1>The FBI Most Wanted List</h1>
-  </header>
-  
   <main>
-    <TheList />
+    <v-app>
+      <NavigationBar />
+      <v-main>
+        <TheList />
+      </v-main>
+    </v-app>
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
+
 </style>
