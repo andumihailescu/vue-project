@@ -6,7 +6,21 @@ export default {
             wantedList: null,
             wantedListData: null,
             page: 1,
+            numberOfPages: 0,
         };
+    },
+
+    created(){
+        const Url=`https://api.fbi.gov/wanted/v1/list?page=${this.page}`
+            fetch(Url)
+            .then((response) => response.json())
+            .then((data) => {
+                this.listData = data;
+                this.wantedList = null;
+                this.wantedListData = [];
+                this.numberOfPages = data.total / 20 + 1;
+                
+            })
     },
 
     methods: {
@@ -23,15 +37,19 @@ export default {
                 this.listData = data;
                 this.wantedList = null;
                 this.wantedListData = [];
+                this.numberOfPages = data.total / 20 + 1;
                 
-            });
+            })
         },
+        search(){
+
+        }
     },
 };
 </script>
 
 <template>
-    <v-btn @click="fetchList">Show me the list</v-btn>
+
     <v-container v-if="listData">
         <v-row>
             <v-col v-for="(person, index) in listData.items" :key="index" cols="2.5">
@@ -39,8 +57,9 @@ export default {
                 <p class="names">{{ person.title }}</p>
             </v-col>
         </v-row>
-        <v-pagination v-model="page" :length="15" :total-visible="5" @update:model-value="fetchList"></v-pagination>
+        <v-pagination v-model="page" :length="numberOfPages" :total-visible="5" @update:model-value="fetchList"></v-pagination>
     </v-container>
+    
 </template>
 
 <style scoped>
@@ -48,5 +67,8 @@ export default {
     font-size: small;
     font-family: sans-serif;
     font-weight: bold;
+}
+.v-text-field{
+      width: 100px;
 }
 </style>

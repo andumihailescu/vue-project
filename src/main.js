@@ -16,7 +16,7 @@ const vuetify = createVuetify({
     components,
     directives,
 });
-  
+
 const app = createApp(App)
 registerPlugins(app)
 
