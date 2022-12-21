@@ -1,13 +1,11 @@
 <script>
-
-export default{
-    data(){
-        return{
-            BackgroundImage: "https://wallpaperaccess.com/full/2831718.jpg",
-        }
-    }
-}
-
+export default {
+  data() {
+    return {
+      BackgroundImage: "https://wallpaperaccess.com/full/2831718.jpg",
+    };
+  },
+};
 </script>
 
 <template>
@@ -20,8 +18,8 @@ export default{
 </template>
 
 <style scoped>
-.homeTitle{
-    font-size: 75px;
-    text-align: center;
+.homeTitle {
+  font-size: 75px;
+  text-align: center;
 }
 </style>

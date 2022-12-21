@@ -1,7 +1,7 @@
 <script>
 import Home from "./Home.vue";
 import List from "./List.vue";
-import TheList from './components/TheList.vue'
+import TheList from "./components/TheList.vue";
 import About from "./About.vue";
 import { useTheme } from "vuetify";
 
@@ -38,9 +38,22 @@ export default {
       this.currentPath = window.location.hash;
     });
   },
-  methods: {},
-};
+  methods: {
+    fetchList() {
+      const Url = `https://api.fbi.gov/wanted/v1/list?page=${this.page}`;
+      fetch(Url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.listData = data;
+          this.wantedList = null;
+          this.wantedListData = [];
+          this.numberOfPages = data.total / 20 + 1;
+        });
+    },
 
+    search() {},
+  },
+};
 </script>
 
 <template>
@@ -52,7 +65,7 @@ export default {
         </div>
         <v-btn icon="mdi-magnify" @click="search"></v-btn>
         <v-btn href="#/">Home</v-btn>
-        <v-btn href="#/list" @click="fetchList">The List</v-btn>
+        <v-btn href="#/list">The List</v-btn>
         <v-btn href="#/about">About</v-btn>
         <v-btn @click="toggleTheme" icon="mdi-animation"></v-btn>
       </v-app-bar>
@@ -65,7 +78,7 @@ export default {
 </template>
 
 <style scoped>
-.searchBox{
-      width: 250px;
+.searchBox {
+  width: 250px;
 }
 </style>
